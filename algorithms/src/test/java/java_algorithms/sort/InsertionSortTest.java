@@ -6,9 +6,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import java_algorithms.sort.BubbleSort;
+import java_algorithms.sort.InsertionSort;
 
-public class BubbleSortTest
+public class InsertionSortTest
 {
     /**
      * A few small, out-of-order lists
@@ -16,9 +16,9 @@ public class BubbleSortTest
     @Test
     public void testSimpleSorting()
     {
-        assertArrayEquals((new BubbleSort()).sort(new int[] {1, 3, 2}), new int[] {1, 2, 3});
-        assertArrayEquals((new BubbleSort()).sort(new int[] {4, 3, 2, 1}), new int[] {1, 2, 3, 4});
-        assertArrayEquals((new BubbleSort()).sort(new int[] {1, 0, 0, 1}), new int[] {0, 0, 1, 1});
+        assertArrayEquals((new InsertionSort()).sort(new int[] {1, 3, 2}), new int[] {1, 2, 3});
+        assertArrayEquals((new InsertionSort()).sort(new int[] {4, 3, 2, 1}), new int[] {1, 2, 3, 4});
+        assertArrayEquals((new InsertionSort()).sort(new int[] {1, 0, 0, 1}), new int[] {0, 0, 1, 1});
     }
 
     /**
@@ -27,7 +27,7 @@ public class BubbleSortTest
     @Test 
     public void testUnchangedAscending()
     {
-        assertArrayEquals((new BubbleSort()).sort(new int[] {1, 10, 100, 1000}), new int[] {1, 10, 100, 1000});
+        assertArrayEquals((new InsertionSort()).sort(new int[] {1, 10, 100, 1000}), new int[] {1, 10, 100, 1000});
     }
 
     /**
@@ -42,7 +42,7 @@ public class BubbleSortTest
         for (int i = 0; i < arr.length; i++) arr[i] = rand.nextInt();
 
         // Sort it
-        arr = (new BubbleSort()).sort(arr);
+        arr = (new InsertionSort()).sort(arr);
 
         // Test it is in the right order
         for (int i = 0; i < arr.length - 1; i++) {
