@@ -11,7 +11,7 @@ public abstract class SortingAlgorithm
             arr[i] = Integer.parseInt(args[i]);
         }
 
-        arr = sort(arr);
+        arr = (new InsertionSort()).sort(arr);
 
         // Print results
         for (int i = 0; i < arr.length; i++) {
@@ -19,8 +19,5 @@ public abstract class SortingAlgorithm
         }
     }
 
-    public static int[] sort(int[] arr)
-    {
-        return null;
-    }
+    public abstract int[] sort(int[] arr);
 }

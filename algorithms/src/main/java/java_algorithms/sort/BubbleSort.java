@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class BubbleSort extends SortingAlgorithm
 {
     @Override
-    public static int[] sort(int[] arr)
+    public int[] sort(int[] arr)
     {
         int[] copy = Arrays.copyOf(arr, arr.length);
 
