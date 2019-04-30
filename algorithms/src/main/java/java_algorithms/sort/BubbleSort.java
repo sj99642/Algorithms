@@ -1,4 +1,4 @@
-package main.java.java_algorithms.sort;
+package java_algorithms.sort;
 
 import java.util.Arrays;
 
@@ -7,6 +7,23 @@ import java.util.Arrays;
  */
 public class BubbleSort extends SortingAlgorithm
 {
+    public static void main(String[] args)
+    {
+        // Take list from command line and sort it
+        int[] arr = new int[args.length];
+
+        for (int i = 0; i < args.length; i++) {
+            arr[i] = Integer.parseInt(args[i]);
+        }
+
+        arr = (new BubbleSort()).sort(arr);
+
+        // Print results
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(arr[i]);
+        }
+    }
+
     @Override
     public int[] sort(int[] arr)
     {
