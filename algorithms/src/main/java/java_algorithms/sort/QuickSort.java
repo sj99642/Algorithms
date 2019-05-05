@@ -1,7 +1,7 @@
 package java_algorithms.sort;
 
 import java.util.concurrent.ThreadLocalRandom;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class QuickSort extends SortingAlgorithm
@@ -30,7 +30,7 @@ public class QuickSort extends SortingAlgorithm
     }
 
     public int[] sort(int[] arr, int start, int end)
-    {
+    {        
         // Make a copy in order to preserve the original after merging in changes
         int[] copy = Arrays.copyOf(arr, arr.length);
 
@@ -39,32 +39,85 @@ public class QuickSort extends SortingAlgorithm
             return arr;
         }
 
-        // Make a copy of the bit to sort
-        int[] subset = Arrays.copyOfRange(copy, start, end);
+        // Choose a random pivot
+        int pivotIndex = ThreadLocalRandom.current().nextInt(end - start);
+        int pivotValue = copy[start + pivotIndex];
 
-        // Pick a random value to act as a pivot
-        int pivotIndex = ThreadLocalRandom.current().nextInt(subset.length);
-        int pivotValue = arr[pivotIndex];
+        // Make a list of the items below and above the pivot
+        ArrayList<Integer> belowPivot = new ArrayList<Integer>();
+        ArrayList<Integer> abovePivot = new ArrayList<Integer>();
+        for (int i = 0; i < end - start; i++) {
+            // Don't include the pivot as either above or below itself
+            if (pivotIndex == i) {
+                continue;
+            }
 
-        // Run DNF algorithm on subset
-        subset = (new DutchNationalFlag()).dnf(subset, pivotValue, pivotValue);
+            if (copy[start + i] <= pivotValue) {
+                belowPivot.add(copy[start + i]);
+            } else {
+                abovePivot.add(copy[start + i]);
+            }
+        }
 
-        // Find start and end of pivot section
-        int startOfPivot = findFirstInstance(subset, pivotValue);
-        int startOfUpper = findLastInstance(subset, pivotValue) + 1;
-        int sizeOfPivot = startOfUpper - startOfPivot;
+        // Put these back into the array
+        assert belowPivot.size() + abovePivot.size() + 1 == end - start;
 
-        // Run quick sort on the left and right halves
-        int[] left = sort(Arrays.copyOf(subset, startOfPivot));
-        int[] right = sort(Arrays.copyOfRange(subset, startOfUpper, subset.length));
+        // Add those below
+        for (int i = 0; i < belowPivot.size(); i++) {
+            copy[start + i] = belowPivot.get(i);
+        }
 
-        // Put them all back in
-        System.arraycopy(copy, start, left, 0, left.length);
-        for (int i = 0; i < sizeOfPivot; i++) copy[i + start + startOfPivot] = pivotValue;
-        System.arraycopy(copy, start + startOfUpper, right, 0, right.length);
+        // Add the pivot
+        copy[start + belowPivot.size()] = pivotValue;
+
+        // Add those above
+        for (int i = 0; i < abovePivot.size(); i++) {
+            // Shifting along the correct amount
+            copy[start + belowPivot.size() + 1 + i] = abovePivot.get(i);
+        }
+
+        // Now run again on the left and right parts
+        copy = sort(arr, start, start + belowPivot.size());
+        copy = sort(arr, start + belowPivot.size() + 1, end);
+
+        // Print for debug
+        if (arr.length < 10) {
+            System.out.print("[");
+            for (int i = 0; i < arr.length - 1; i++) System.out.printf("%d, ", arr[i]);
+            System.out.printf("%d] - [%d..%d) -> [", arr[arr.length - 1], start, end);
+            for (int i = 0; i < copy.length - 1; i++) System.out.printf("%d, ", arr[i]);
+            System.out.printf("%d]\n", copy[copy.length - 1]);
+        }
+
+        // Should now be done, so return
+        return copy;
+
+        // // Make a copy of the bit to sort
+        // int[] subset = Arrays.copyOfRange(copy, start, end);
+
+        // // Pick a random value to act as a pivot
+        // int pivotIndex = ThreadLocalRandom.current().nextInt(subset.length);
+        // int pivotValue = arr[pivotIndex];
+
+        // // Run DNF algorithm on subset
+        // subset = (new DutchNationalFlag()).dnf(subset, pivotValue, pivotValue);
+
+        // // Find start and end of pivot section
+        // int startOfPivot = findFirstInstance(subset, pivotValue);
+        // int startOfUpper = findLastInstance(subset, pivotValue) + 1;
+        // int sizeOfPivot = startOfUpper - startOfPivot;
+
+        // // Run quick sort on the left and right halves
+        // int[] left = sort(Arrays.copyOf(subset, startOfPivot));
+        // int[] right = sort(Arrays.copyOfRange(subset, startOfUpper, subset.length));
+
+        // // Put them all back in
+        // System.arraycopy(copy, start, left, 0, left.length);
+        // for (int i = 0; i < sizeOfPivot; i++) copy[i + start + startOfPivot] = pivotValue;
+        // System.arraycopy(copy, start + startOfUpper, right, 0, right.length);
 
         // Return the modified array
-        return copy;
+        // return copy;
     }
 
 

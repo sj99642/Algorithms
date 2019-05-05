@@ -18,9 +18,9 @@ public class QuickSortTest
     @Test
     public void testSimpleSorting()
     {
-        assertArrayEquals(algorithm.sort(new int[] {1, 3, 2}), new int[] {1, 2, 3});
-        assertArrayEquals(algorithm.sort(new int[] {4, 3, 2, 1}), new int[] {1, 2, 3, 4});
-        assertArrayEquals(algorithm.sort(new int[] {1, 0, 0, 1}), new int[] {0, 0, 1, 1});
+        assertArrayEquals(new int[] {1, 2, 3}, algorithm.sort(new int[] {1, 3, 2}));
+        assertArrayEquals(new int[] {1, 2, 3, 4}, algorithm.sort(new int[] {4, 3, 2, 1}));
+        assertArrayEquals(new int[] {0, 0, 1, 1}, algorithm.sort(new int[] {1, 0, 0, 1}));
     }
 
     /**
