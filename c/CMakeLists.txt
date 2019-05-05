@@ -4,8 +4,9 @@ project(CAlgorithms VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
-add_executable(CAlgorithms main.cpp)
-add_executable(CAlgorithms src/LinkedList.c)
+add_executable(CAlgorithms main.cpp src/LinkedList.c)
+include_directories(headers)
+
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

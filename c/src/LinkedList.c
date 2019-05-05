@@ -1,15 +1,9 @@
-#include "headers/LinkedList.h"
+#include "LinkedList.h"
 
 // For some reason VSCode doesn't know what NULL is
 #ifndef NULL
 #define NULL (void*) 0
 #endif
-
-typedef struct LinkedList {
-    struct LinkedList* next;
-    int key;
-    void* value;
-} LinkedList;
 
 /**
  * Goes all the way to the end of the list and adds the item.
@@ -41,7 +35,7 @@ LinkedList* addFirst(LinkedList* list, LinkedList* newItem)
 /**
  * Removes the item with the given key in the list.
  */
-LinkedList* delete(LinkedList* list, int key)
+LinkedList* deleteByKey(LinkedList* list, int key)
 {
     // If already NULL, nothing can be done
     if (list == NULL) return list;
