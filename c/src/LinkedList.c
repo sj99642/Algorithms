@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "LinkedList.h"
 
 // For some reason VSCode doesn't know what NULL is
@@ -57,19 +59,42 @@ LinkedList* deleteByKey(LinkedList* list, int key)
  */
 LinkedList* insert(LinkedList* list, LinkedList* item, int place)
 {
+    // Special case: if the item is to go at the start
+    if (place == 0) {
+        item->next = list;
+        return item;
+    }
+
+    // Make a version of the list to move along
     LinkedList* current = list;
 
-    // Decrease place until we have reached the correct position
-    for (; place >= 0; place--)
+    // Move onto the next until this one will follow 'current'
+    for (; place > 1; place--)
     {
-        if (current == NULL) {
+        if (current->next != NULL) {
+            current = current->next;
+        } else {
             return list;
         }
     }
 
-    // Set the rest of the list to follow the new one
-    item->next = list->next;
+    // Add the item after 'current'
+    item->next = current->next;
+    current->next = item;
 
-    // Set the new one to follow the rest
-    list->next = item;
+    // Return the list
+    return list;
+}
+
+/**
+ * Prints out the keys in the list
+ */
+LinkedList* printList(LinkedList* list)
+{
+    while (list != NULL)
+    {
+        printf("%d ", list->key);
+        list = list->next;
+    }
+    printf("\n");
 }
