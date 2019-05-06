@@ -2,11 +2,7 @@
 #include <stdlib.h>
 
 #include "LinkedList.h"
-
-int main(int a, char** args)
-{
-    runLinkedListTest();
-}
+#include "Stack.h"
 
 void runLinkedListTest()
 {
@@ -33,4 +29,49 @@ void runLinkedListTest()
     list = addFirst(list, item3);
     list = insert(list, item4, 2);
     printList(list);
+}
+
+void runStackTest()
+{
+    Stack* stack = (Stack*) malloc(sizeof(Stack));
+    initialise(stack, 5);
+
+    // []
+    push(stack, 5);
+    // [5]
+    push(stack, 7);
+    // [5, 7]
+    push(stack, 9);
+    // [5, 7, 9]
+    printf("%d; ", top(stack));
+    // [5, 7, 9]
+    push(stack, 11);
+    // [5, 7, 9, 11]
+    printf("%d; ", isFull(stack));
+    // [5, 7, 9, 11]
+    push(stack, 13);
+    // [5, 7, 9, 11, 13]
+    printf("%d; ", isFull(stack));
+    // [5, 7, 9, 11, 13]
+    printf("%d; ", pop(stack));
+    // [5, 7, 9, 11]
+    printf("%d; ", pop(stack));
+    // [5, 7, 9]
+    printf("%d; ", pop(stack));
+    // [5, 7]
+    printf("%d; ", pop(stack));
+    // [5]
+    printf("%d; ", isEmpty(stack));
+    // [5]
+    printf("%d; ", pop(stack));
+    // []
+    printf("%d; ", isEmpty(stack));
+    // [
+    printf("%d\n", pop(stack));
+}
+
+int main(int a, char** args)
+{
+    runLinkedListTest();
+    runStackTest();
 }
