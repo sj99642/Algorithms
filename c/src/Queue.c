@@ -1,6 +1,7 @@
 #include "Queue.h"
 
 #include <stdlib.h>
+#include <limits.h>
 
 #ifndef NULL
 #define NULL (void*) 0
@@ -59,7 +60,7 @@ int nextInQueue(Queue* queue)
 {
     // If empty there is no next value
     if (queue->start == queue->nextEmpty) {
-        return 0;
+        return INT_MIN;
     }
 
     return queue->values[queue->start];
@@ -69,7 +70,7 @@ int dequeue(Queue* queue)
 {
     // If empty there is no value to dequeue
     if (queue->start == queue->nextEmpty) {
-        return 0;
+        return INT_MIN;
     }
 
     // Move the start along before we return, since it can't happen after
