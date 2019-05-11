@@ -4,7 +4,7 @@ project(CAlgorithms VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
-add_executable(CAlgorithms main.c src/LinkedList.c src/Stack.c)
+add_executable(CAlgorithms main.c src/LinkedList.c src/Stack.c src/Queue.c)
 include_directories(headers)
 
 

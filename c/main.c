@@ -3,6 +3,7 @@
 
 #include "LinkedList.h"
 #include "Stack.h"
+#include "Queue.h"
 
 void runLinkedListTest()
 {
@@ -34,44 +35,90 @@ void runLinkedListTest()
 void runStackTest()
 {
     Stack* stack = (Stack*) malloc(sizeof(Stack));
-    initialise(stack, 5);
+    initialiseStack(stack, 5);
 
     // []
-    push(stack, 5);
+    pushStack(stack, 5);
     // [5]
-    push(stack, 7);
+    pushStack(stack, 7);
     // [5, 7]
-    push(stack, 9);
+    pushStack(stack, 9);
     // [5, 7, 9]
-    printf("%d; ", top(stack));
+    printf("%d; ", stackTop(stack));
     // [5, 7, 9]
-    push(stack, 11);
+    pushStack(stack, 11);
     // [5, 7, 9, 11]
-    printf("%d; ", isFull(stack));
+    printf("%d; ", isStackFull(stack));
     // [5, 7, 9, 11]
-    push(stack, 13);
+    pushStack(stack, 13);
     // [5, 7, 9, 11, 13]
-    printf("%d; ", isFull(stack));
+    printf("%d; ", isStackFull(stack));
     // [5, 7, 9, 11, 13]
-    printf("%d; ", pop(stack));
+    printf("%d; ", stackPop(stack));
     // [5, 7, 9, 11]
-    printf("%d; ", pop(stack));
+    printf("%d; ", stackPop(stack));
     // [5, 7, 9]
-    printf("%d; ", pop(stack));
+    printf("%d; ", stackPop(stack));
     // [5, 7]
-    printf("%d; ", pop(stack));
+    printf("%d; ", stackPop(stack));
     // [5]
-    printf("%d; ", isEmpty(stack));
+    printf("%d; ", isStackEmpty(stack));
     // [5]
-    printf("%d; ", pop(stack));
+    printf("%d; ", stackPop(stack));
     // []
-    printf("%d; ", isEmpty(stack));
+    printf("%d; ", isStackEmpty(stack));
     // [
-    printf("%d\n", pop(stack));
+    printf("%d\n", stackPop(stack));
+}
+
+void runQueueTest()
+{
+    Queue* queue = (Queue*) malloc(sizeof(Queue));
+    initialiseQueue(queue, 5);
+
+    // []
+    enqueue(queue, 10);
+    // [10]
+    printf("%d; ", dequeue(queue));
+    // []
+    enqueue(queue, 1);
+    // [1]
+    enqueue(queue, 2);
+    // [1, 2]
+    enqueue(queue, 3);
+    // [1, 2, 3]
+    printf("%d; ", nextInQueue(queue));
+    // [1, 2, 3]
+    printf("%d; ", dequeue(queue));
+    // [2, 3]
+    enqueue(queue, 4);
+    // [2, 3, 4]
+    enqueue(queue, 5);
+    // [2, 3, 4, 5]
+    printf("%d; ", isQueueFull(queue));
+    // [2, 3, 4, 5]
+    enqueue(queue, 6);
+    // [2, 3, 4, 5, 6]
+    printf("%d; ", isQueueFull(queue));
+    // [2, 3, 4, 5, 6]
+    dequeue(queue);
+    // [3, 4, 5, 6]
+    dequeue(queue);
+    // [4, 5, 6]
+    dequeue(queue);
+    // [5, 6]
+    dequeue(queue);
+    // [6]
+    printf("%d; ", isQueueEmpty(queue));
+    // [6]
+    dequeue(queue);
+    // []
+    printf("%d\n", isQueueEmpty(queue));
 }
 
 int main(int a, char** args)
 {
     runLinkedListTest();
     runStackTest();
+    runQueueTest();
 }
